@@ -86,3 +86,38 @@ leaflet() %>%
 
 install.packages("rdevteam")
 saveWidget(pm, "E:/data-analysis/messy/shiny_markdown/tt.html")
+
+
+rmarkdown::html_notebook_output_html("E:/data-analysis/messy/shiny_markdown/out/test_v1.Rmd")
+
+
+
+leaflet() %>%
+  setView(lng=126.9784, lat=37.566, zoom=7) %>%
+  addTiles()
+
+
+
+
+markdown::markdownToHTML("test_v1.Rmd", 
+          output  = "test_v1.html")
+
+knitr::knit2html("E:/data-analysis/messy/shiny_markdown/out/test_v1.Rmd")
+
+library(knitr)
+library(markdown)
+
+
+knit('E:/data-analysis/messy/shiny_markdown/out/test_v1.Rmd', 'E:/data-analysis/messy/shiny_markdown/out/test_v1.md') # creates md file
+
+rmarkdown::render(
+  input = "E:/data-analysis/messy/shiny_markdown/out/test_v1.md", 
+  output_file = "E:/data-analysis/messy/shiny_markdown/out/html_doc",
+  output_format = "flex_dashboard")
+
+
+
+rmarkdown::run("E:/data-analysis/messy/shiny_markdown/out/test_v1.Rmd")
+rmarkdown::ru
+library(rmarkdown)
+sessionInfo()
