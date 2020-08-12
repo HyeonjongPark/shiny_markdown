@@ -60,17 +60,20 @@ events %>%
 
 })
 
+# p1 = events %>%
+#   filter_activity_frequency(percentage = 1.0) %>% # show only most frequent activities
+#   filter_trace_frequency(percentage = .80) %>% 
+#   process_map()
+p1 = events %>%
+  filter_activity_frequency(percentage = 1.0) %>% # show only most frequent activities
+  filter_trace_frequency(percentage = 0.8) %>% 
+  animate_process()
+
+renderProcessanimater(p1)
+
+
 
 #
-events %>%
-  filter_activity_frequency(percentage = 1.0) %>% # show only most frequent activities
-  filter_trace_frequency(percentage = .80) %>% 
-  process_map()
-
-events %>%
-  filter_activity_frequency(percentage = 1.0) %>% # show only most frequent activities
-  filter_trace_frequency(percentage = .80) %>% 
-  animate_process()
 
 
 # renderPlot({
@@ -83,6 +86,3 @@ events %>%
 
  
 ```
-
-
-
