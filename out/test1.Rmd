@@ -8,6 +8,7 @@ runtime: shiny
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
 library(bupaR)
 library(dplyr)
 library(shiny)
@@ -17,23 +18,26 @@ load("E:/data-analysis/messy/shiny_markdown/events_data.RData")
 
 ```
 
-This R Markdown document is made interactive using Shiny. Unlike the more traditional workflow of creating static reports, you can now create documents that allow your readers to change the assumptions underlying your analysis and see the results immediately. 
-
-To learn more, see [Interactive Documents](http://rmarkdown.rstudio.com/authoring_shiny.html).
-
-## Inputs and Outputs
-
-You can embed Shiny inputs and outputs in your document. Outputs are automatically updated whenever inputs change.  This demonstrates how a standard R plot can be made interactive by wrapping it in the Shiny `renderPlot` function. The `selectInput` and `sliderInput` functions create the input widgets used to drive the plot.
-
-```{r eruptions, echo=FALSE, eval=TRUE}
+Sidebar {.sidebar}
+===========================================================
+Shiny wideget {.no-title}
+-------------------------------------------------
+### Input widget {.no-title}
+```{r}
 inputPanel(
   sliderInput("act", label = "act_freq:",
               min = 0.1, max = 1, value = 0.4, step = 0.1),
   sliderInput("trace", label = "trace_freq:",
               min = 0.1, max = 1, value = 0.4, step = 0.1)  
 )
+```
 
-#precedence matrix
+Page 1
+=========================================================== 
+TAB {.tabset}
+-------------------------------------------------
+### component1
+```{r}
 renderPlot({
 precedence_matrix <- events %>%
   filter_activity_frequency(percentage = input$act) %>% # show only most frequent activities
@@ -42,29 +46,36 @@ precedence_matrix <- events %>%
   plot()
 precedence_matrix
 })
+```
 
+### component2
+```{r}
 # trace explorer
 renderPlot({
 trace_explorer <- events %>%
   trace_explorer(coverage = input$trace)
 trace_explorer
-
 })
+```
 
+### component3
+```{r}
 #dotted charts
 renderPlot({
 events %>%
   filter_activity_frequency(percentage = input$act) %>% # show only most frequent activities
   filter_trace_frequency(percentage = input$trace) %>% 
   dotted_chart()
-
 })
+```
 
-# p1 = events %>%
-#   filter_activity_frequency(percentage = 1.0) %>% # show only most frequent activities
-#   filter_trace_frequency(percentage = .80) %>% 
-#   process_map()
 
+Page 2
+===========================================================     
+row1 {data-height=100%}
+-------------------------------------------------
+### Histogram {.no-title}
+```{r}
 renderProcessanimater({
   events %>%
   filter_activity_frequency(percentage = input$act) %>% # show only most frequent activities
@@ -73,17 +84,4 @@ renderProcessanimater({
 })
 
 
-
-#
-
-
-# renderPlot({
-# pm = events %>%
-#   filter_activity_frequency(percentage = input$act) %>% # show only most frequent activities
-#   filter_trace_frequency(percentage = input$trace) %>%    # show only the most frequent traces
-#   process_map(performance(mean, "mins"),
-#               render = T) 
-# pm
-
- 
 ```
