@@ -10,6 +10,9 @@ library(ggplot2)
 library(stringr)
 library(lubridate)
 
+# 참고 사이트
+
+# https://onesixx.com/flexdashboard1/
 
 a=1:5
 b=3:5
@@ -71,6 +74,7 @@ rework_dashboard(events)
 resource_dashboard(events)
 
 library(leaflet)
+
 my_map <- leaflet() %>% 
   addTiles()
 my_map
@@ -80,4 +84,5 @@ leaflet() %>%
   addTiles %>% # Add default OpenStreetMap map tiles
   setView(lng = 5.0, lat = 51.0, zoom = 6)
 
+install.packages("rdevteam")
 saveWidget(pm, "E:/data-analysis/messy/shiny_markdown/tt.html")
