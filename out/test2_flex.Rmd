@@ -2,8 +2,8 @@
 title: "Untitled"
 output: 
   flexdashboard::flex_dashboard:
-    orientation: columns
-    vertical_layout: fill
+    orientation: rows
+    vertical_layout: scroll
 runtime: shiny
 ---
 
@@ -17,9 +17,9 @@ library(processanimateR)
 load("E:/data-analysis/messy/shiny_markdown/events_data.RData")
 ```
 
-Column {data-width=500}
+Column {data-width=300}
 -----------------------------------------------------------------------
-
+Row{data-Width=200}
 ### select
 ```{r}
 inputPanel(
@@ -43,7 +43,7 @@ precedence_matrix
 })
 ```
 
-Column {data-width=500}
+Column {data-width=300}
 -----------------------------------------------------------------------
 
 ### Chart B
@@ -54,7 +54,6 @@ renderPlot({
 trace_explorer <- events %>%
   trace_explorer(coverage = input$trace)
 trace_explorer
-
 })
 ```
 
@@ -67,7 +66,6 @@ events %>%
   filter_activity_frequency(percentage = input$act) %>% # show only most frequent activities
   filter_trace_frequency(percentage = input$trace) %>% 
   dotted_chart()
-
 })
 ```
 
