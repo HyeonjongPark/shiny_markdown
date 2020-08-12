@@ -64,12 +64,13 @@ events %>%
 #   filter_activity_frequency(percentage = 1.0) %>% # show only most frequent activities
 #   filter_trace_frequency(percentage = .80) %>% 
 #   process_map()
-p1 = events %>%
-  filter_activity_frequency(percentage = 1.0) %>% # show only most frequent activities
-  filter_trace_frequency(percentage = 0.8) %>% 
-  animate_process()
 
-renderProcessanimater(p1)
+renderProcessanimater({
+  events %>%
+  filter_activity_frequency(percentage = input$act) %>% # show only most frequent activities
+  filter_trace_frequency(percentage = input$trace) %>% 
+  animate_process()
+})
 
 
 
