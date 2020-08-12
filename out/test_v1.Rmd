@@ -1,0 +1,87 @@
+---
+title: "Shiny with Flexboard"
+output: 
+    flexdashboard::flex_dashboard:
+    orientation: rows
+runtime: shiny
+vertical_layout: fill
+---
+    
+```{r global, include=FALSE}
+library(flexdashboard)
+library(bupaR)
+library(dplyr)
+library(shiny)
+library(pmap)
+library(processanimateR)
+load("E:/data-analysis/messy/shiny_markdown/events_data.RData")
+#library(showtext); font.add("myfont","NanumGothic.ttc")
+```
+
+Sidebar {.sidebar}
+===========================================================
+Shiny wideget {.no-title}
+-------------------------------------------------
+### Input widget {.no-title}
+```{r}
+inputPanel(
+  sliderInput("act", label = "act_freq:",
+              min = 0.1, max = 1, value = 0.4, step = 0.1),
+  sliderInput("trace", label = "trace_freq:",
+              min = 0.1, max = 1, value = 0.4, step = 0.1)  
+)
+```
+
+Page 1
+=========================================================== 
+TAB {.tabset}
+-------------------------------------------------
+### component1
+```{r}
+renderPlot({
+precedence_matrix <- events %>%
+  filter_activity_frequency(percentage = input$act) %>% # show only most frequent activities
+  filter_trace_frequency(percentage = input$trace) %>%    # show only the most frequent traces
+  precedence_matrix() %>%
+  plot()
+precedence_matrix
+})
+```
+
+### component2
+```{r}
+# trace explorer
+renderPlot({
+trace_explorer <- events %>%
+  trace_explorer(coverage = input$trace)
+trace_explorer
+})
+```
+
+### component3
+```{r}
+#dotted charts
+renderPlot({
+events %>%
+  filter_activity_frequency(percentage = input$act) %>% # show only most frequent activities
+  filter_trace_frequency(percentage = input$trace) %>% 
+  dotted_chart()
+})
+```
+
+
+Page 2
+===========================================================     
+row1 {data-height=80%}
+-------------------------------------------------
+### Histogram {.no-title}
+```{r}
+renderProcessanimater({
+  events %>%
+  filter_activity_frequency(percentage = input$act) %>% # show only most frequent activities
+  filter_trace_frequency(percentage = input$trace) %>% 
+  animate_process()
+})
+
+
+```
