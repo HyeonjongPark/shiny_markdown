@@ -1,4 +1,5 @@
 # load libraries ####
+rm(list = ls())
 library(bupaR)
 library(edeaR)
 library(processmapR)
@@ -10,6 +11,22 @@ library(ggplot2)
 library(stringr)
 library(lubridate)
 
+getwd()
+
+library(data.table)
+library(highcharter)
+library(ggplot2)
+library(flexdashboard)
+library(rmarkdown)
+library(dplyr)
+library(plyr)
+library(leaflet)
+#install.packages("TraMineR")
+library(TraMineR)
+#install.packages("pipeR")
+library(pipeR)
+library(sunburstR)
+
 # 참고 사이트
 
 # https://onesixx.com/flexdashboard1/
@@ -18,6 +35,7 @@ a=1:5
 b=3:5
 
 events = patients
+events
 getwd()
 save(events, file = "events_data.RData")
 
@@ -107,11 +125,12 @@ knitr::knit2html("E:/data-analysis/messy/shiny_markdown/out/test_v1.Rmd")
 library(knitr)
 library(markdown)
 
+library(flexdashboard)
 
 knit('E:/data-analysis/messy/shiny_markdown/out/test_v1.Rmd', 'E:/data-analysis/messy/shiny_markdown/out/test_v1.md') # creates md file
 
 rmarkdown::render(
-  input = "E:/data-analysis/messy/shiny_markdown/out/test_v1.md", 
+  input = "E:/data-analysis/messy/shiny_markdown/out/test_v1.Rmd", 
   output_file = "E:/data-analysis/messy/shiny_markdown/out/html_doc",
   output_format = "flex_dashboard")
 
@@ -121,3 +140,62 @@ rmarkdown::run("E:/data-analysis/messy/shiny_markdown/out/test_v1.Rmd")
 rmarkdown::ru
 library(rmarkdown)
 sessionInfo()
+
+install.packages("rmd2html")
+
+library(htmlwidgets)
+
+#install.packages("xaringan")
+library(xaringan)
+library(markdown)
+library(rmarkdown)
+
+install.packages("stationery")
+library(stationery)
+
+rmd2html("test_v1.Rmd", "E:/data-analysis/messy/shiny_markdown/out/")
+rmd2ht
+
+rmd2h
+library(htmltools)
+htmltools::htmlDepend
+
+
+
+rmarkdown::draft("E:/data-analysis/messy/shiny_markdown/out/test_v2.Rmd", template = "flex_dashboard", package = "flexdashboard")
+
+
+render("E:/data-analysis/messy/shiny_markdown/out/test_v1.Rmd", output_format = "word_document")
+
+
+
+
+
+
+library(tidyverse)
+install.packages("sf")
+install.packages("class")
+install.packages("KernSmooth")
+library(class)
+library(sf)
+
+sigungu_shp <- st_read("E:/data-analysis/messy/process_map/map_shp/CTPRVN.shp")
+
+sigungu_shp$CTP_KOR_NM <- iconv(sigungu_shp$CTP_KOR_NM, from = "CP949", to = "UTF-8", sub = NA, mark = TRUE, toRaw = FALSE)
+
+library(stringr)
+## 시각화
+sigungu_shp %>% 
+  #dplyr::filter(str_detect(CTPRVN_CD, "11")) %>% 
+  select(CTP_KOR_NM) %>% 
+  plot()
+  
+
+
+library(dplyr)  # tidy data manipulation
+library(leaflet)  # interative mapping
+library(DT)  # interactive tables
+library(crosstalk)  # inter-widget interactivity
+
+a = readRDS("E:/data-analysis/messy/shiny_markdown/in/gias_sample.RDS")
+a %>% class
